@@ -31,9 +31,11 @@ fix_api_url = (url) ->
   url.replace "https://api.github.com/repos", "https://github.com"
 
 parse_data = (data) ->
-  push_events = data.filter (x) -> x.type == "PushEvent"
-  for event_data in push_events
-    new GitPush(event_data)
+  event_types = 
+    PushEvent: GitPush
+  for event_data in data
+    if event_type = event_types[event_data.type]
+      new event_type(event_data)
 
 callback = (data) ->
   response = data["data"];
@@ -43,6 +45,7 @@ callback = (data) ->
 draw = (events) ->
   container = document.getElementById("github-feed")
   for event in events
+    continue unless event
     container.appendChild(event.to_html())
   container.style.display = "block"
 
