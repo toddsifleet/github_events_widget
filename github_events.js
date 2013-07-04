@@ -6,7 +6,6 @@ GitPush = (function() {
   function GitPush(data) {
     this.data = data;
     this.created = this.data.created_at;
-    console.log(this.data);
     this.repo_url = this.data.repo.url;
     this.repo_name = this.data.repo.name;
     this.commits = this.parse_commits(this.data.payload.commits);
@@ -94,7 +93,6 @@ get_data = function() {
   username = container.getAttribute("github-username");
   script = document.createElement('script');
   script.src = "https://api.github.com/users/" + username + "/events?callback=callback";
-  console.log(username);
   return document.getElementsByTagName('head')[0].appendChild(script);
 };
 

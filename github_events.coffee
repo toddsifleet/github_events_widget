@@ -1,7 +1,6 @@
 class GitPush
   constructor: (@data) ->
     @created = @data.created_at
-    console.log @data
     @repo_url = @data.repo.url
     @repo_name = @data.repo.name
     @commits = @parse_commits(@data.payload.commits)
@@ -54,7 +53,6 @@ get_data = () ->
   username = container.getAttribute("github-username")
   script = document.createElement('script');
   script.src = "https://api.github.com/users/#{username}/events?callback=callback"
-  console.log username
   document.getElementsByTagName('head')[0].appendChild(script)
 
 initialize = () ->
